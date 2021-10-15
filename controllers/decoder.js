@@ -115,7 +115,7 @@ module.exports = app => {
     */
 
     app.route('/api/decoder/raw').post(async (req, res) => {
-
+        console.log("decoding raw message :", req.body.raw);
         var type = ""
         var fragments = ""
         var complete = ""
@@ -186,7 +186,7 @@ module.exports = app => {
 
         var payload_result = ""
 
-
+        console.log("decoding (PAYLOAD) raw message :", req.body.raw);
 
         for (var i = 0; i < payload.length; i++) {
             var pos = 0
@@ -405,6 +405,9 @@ module.exports = app => {
         parse_radio = numSoma
         /* ********************************************************************************************* */
 
+        console.log("ending (PAYLOAD) raw message :");
+
+
         const data = {
             id_origem: req.body.id,
             raw: req.body.raw,
@@ -442,7 +445,7 @@ module.exports = app => {
             parse_mmsi, parse_status, parse_rate, parse_speed, parse_position,
             parse_lon, longitude, parse_lat, latitude, parse_course,
             parse_heading, parse_maneuer, parse_raim, parse_radio); */
-
+        console.log("Saving...");
         await newRaw.save()
             .then(() => {
 
@@ -453,7 +456,7 @@ module.exports = app => {
                                         return response
                                     })
                                 console.log("TESTE", teste); */
-
+                console.log("Saving Raw...");
                 res.status(200).json({
                     success: true,
                     msg: "Message Decoded!",
@@ -461,6 +464,7 @@ module.exports = app => {
                 })
             })
             .catch((error) => {
+                console.log("ERRO Saving Raw!!!");
                 res.status(200).json({
                     success: false,
                     msg: "Message NOT Decoded!",
